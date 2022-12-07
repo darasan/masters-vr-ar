@@ -1,0 +1,54 @@
+{
+    "name": "KeyboardInput",
+    "maps": [
+        {
+            "name": "StandardKeyboard",
+            "id": "17d6d939-9075-4829-bb8c-f3212a597876",
+            "actions": [
+                {
+                    "name": "A_press",
+                    "type": "Button",
+                    "id": "b518a407-13ac-4e3b-a8f9-812c83540168",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Space",
+                    "type": "Button",
+                    "id": "dda06520-0cbc-4d88-b862-4173caadfcb9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d8143d06-f7da-44ed-ac9d-fd1ee7786e23",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "A_press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "694231cd-4dfa-47af-a0be-6cf536390152",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Space",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
