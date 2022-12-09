@@ -29,9 +29,20 @@ public class InputHandler : MonoBehaviour
 
     void OnA_press()
     {
-        //Debug.Log("Heyyyy");
         btn_mgr = panel.GetComponent<ButtonManager>();
-        btn_mgr.OnButtonClick(0); //"next 0 just add binding for B,C etc. Cant avoid I think."
+        btn_mgr.OnButtonClick(0);
+    }
+
+    void OnB_press()
+    {
+        btn_mgr = panel.GetComponent<ButtonManager>();
+        btn_mgr.OnButtonClick(1); 
+    }
+
+    void OnC_press()
+    {
+        btn_mgr = panel.GetComponent<ButtonManager>();
+        btn_mgr.OnButtonClick(2); 
     }
 
     void OnSpace()

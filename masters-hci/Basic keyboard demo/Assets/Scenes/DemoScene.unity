@@ -1856,10 +1856,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  letters:
-  - A
-  - B
-  - C
+  wordlistGO: {fileID: 0}
 --- !u!1001 &1522143540
 PrefabInstance:
   m_ObjectHideFlags: 0

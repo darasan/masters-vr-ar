@@ -12,12 +12,34 @@ public class ButtonManager : MonoBehaviour
     public GameObject buttonPrefab;
     public Button[] buttons;
     GameObject[] buttonsGO;
+    public GameObject wordlistGO;
+    TextMeshProUGUI scrollListText;
 
     //public Button testBtn;
 
     private string[] letters = 
     {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
      "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+    private string[] wordsA = 
+    {"Any", "Arm", "Allow", "Apple", "Author", "Apricot", "Art", "Audio"};
+
+    private string[] wordsB = 
+    {"Back", "Be", "Best", "Bill", "Bore", "Bubble", "Beach", "Bump"};
+
+    private string[] wordsC = 
+    {"Call", "Catch", "Certain", "Check", "Chart", "Chill", "Chew", "Court"};
+
+    public void PopulateWordList(string[] words)
+    {
+        scrollListText.text = ""; //Clear
+
+        foreach(string word in words)
+        {
+            scrollListText.text += word + "\n"; //Note += concats string so previous not overwritten
+        }
+    }
+
 
     public void OnA_clicked()
     {
@@ -65,6 +87,23 @@ public class ButtonManager : MonoBehaviour
     {
         // The id is the text of the button.
         Debug.Log("Clicked: " + id.ToString());
+        switch (id)
+        {
+            case 0:
+                PopulateWordList(wordsA);
+                break;
+            
+            case 1:
+                PopulateWordList(wordsB);
+                break;
+
+            case 2:
+                PopulateWordList(wordsC);
+                break;
+            
+            default:
+                break;
+        }
 
        // "next - add small jump/scale on key press so looks nice. If want to change highlight colour, do in prefab"
        // "can use id received here to index button array, then set transform/scale. May need lerp thing later, just jump to vals for now"
@@ -117,7 +156,6 @@ public class ButtonManager : MonoBehaviour
 
             //Assign click callback
             buttons[index].onClick.AddListener(() => OnButtonClick(index));
-
         }
     }
 
@@ -126,6 +164,9 @@ public class ButtonManager : MonoBehaviour
     void Start()
     {
         CreateButtons();
+
+        //Get text component of scroll list
+        scrollListText = wordlistGO.GetComponent<TextMeshProUGUI>(); //Use GetCompInChildren when in hierarchy below (child), else wont find. Think GetComp only for object assigned in inspector directly
     }
 
     // Update is called once per frame
