@@ -11,11 +11,28 @@ public class ButtonManager : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public Button[] buttons;
-    GameObject[] buttonsGO;
+    GameObject[] keysGO;
     public GameObject wordlistGO;
     TextMeshProUGUI scrollListText;
 
-    //public Button testBtn;
+     ///<summary>Placeholder delegate function for our buttonList</summary>
+    public delegate void ButtonAction();
+
+    public MyButton[] buttonList;
+    ///<summary>Index reference to our currently selected button.</summary>
+    public int selectedButton = 0;
+
+    ///<summary>A struct to represent individual buttons. This makes it easier to wrap
+    /// the required variables into a single container. Don't forget 
+    /// [System.Serializable], if you wish to see your final array in the inspector.
+    [System.Serializable]
+    public struct MyButton
+    {
+        /// <summary>The image contained in the button.</summary>
+        public Image image;
+        /// <summary>The delegate method to invoke on action.</summary>
+        public ButtonAction action;
+    }
 
     private string[] letters = 
     {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
@@ -40,7 +57,6 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-
     public void OnA_clicked()
     {
         Debug.Log("A clicked! send btn event");
@@ -52,7 +68,7 @@ public class ButtonManager : MonoBehaviour
         // buttons[0].onClick.Invoke(); "works but doesnt change colour. separate event. will need to just set colour separately? want at least basic working for now, to see easily what key pressed"
         // "good, check docs again...  "
 
-        /* var go = buttonsGO[0];
+        /* var go = keysGO[0];
         var ped = new PointerEventData(EventSystem.current);
         ExecuteEvents.Execute(go, ped, ExecuteEvents.pointerEnterHandler);
         ExecuteEvents.Execute(go, ped, ExecuteEvents.submitHandler); */
@@ -109,7 +125,7 @@ public class ButtonManager : MonoBehaviour
        // "can use id received here to index button array, then set transform/scale. May need lerp thing later, just jump to vals for now"
        // "then connect keyboard input. May use buttonDown func if not working on first touch"
 
-        var go = buttonsGO[id];
+        var go = keysGO[id];
         var ped = new PointerEventData(EventSystem.current);
        // ExecuteEvents.Execute(go, ped, ExecuteEvents.pointerEnterHandler);
        // ExecuteEvents.Execute(go, ped, ExecuteEvents.submitHandler); 
@@ -120,9 +136,43 @@ public class ButtonManager : MonoBehaviour
 
     }
 
-    void CreateButtons()
+    ///<summary>This is the method that will call when selecting "Play".</summary>
+    void PlayButtonAction()
     {
-        buttonsGO = new GameObject[26];
+        Debug.Log("Play");
+    }
+
+     void MoveToNextWord()
+    {
+        // Reset the currently selected button to the default colour.
+        buttonList[selectedButton].image.color = Color.white;
+        // Increment our selected button index by 1.
+        selectedButton++;
+        // Check that our new index does not move outside of our array.
+        if(selectedButton >= buttonList.Length)
+        {
+            // If you want to reset to the first button, reset the index.
+            selectedButton = 0;
+            // If you do not, simply move it back by 1, instead.
+        }
+        // Set the currently selected button to the "selected" colour.
+        buttonList[selectedButton].image.color = Color.green;
+    }
+
+    void MoveToPreviousWord()
+    {
+        buttonList[selectedButton].image.color = Color.white;
+        selectedButton--;
+        if(selectedButton < 0)
+        {
+            selectedButton = (buttonList.Length - 1);
+        }
+        buttonList[selectedButton].image.color = Color.green;
+    }
+
+    void CreateKeyboard()
+    {
+        keysGO = new GameObject[26];
         
 
         float padding = 35.0f; //padding from left side of panel
@@ -135,7 +185,7 @@ public class ButtonManager : MonoBehaviour
             GameObject btn = Instantiate(buttonPrefab); //"setting pos but not correct - understand how to do. remember relative to parent"
 
             //Store GO
-            buttonsGO[index] = btn;
+            keysGO[index] = btn;
 
             //Set position
             btn.transform.SetParent(this.transform); //set this panel as parent, else will instantiate at top level in hierarchy
@@ -159,11 +209,27 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
+    void CreateWordListButtons()
+    {
+        for(int i=0; i<buttonList.Length; i++){
+
+            // Instantiate buttonList to hold the amount of buttons we are using.
+            // buttonList = new MyButton[2];
+            // Set up the first button, finding the game object based off its name. We also 
+            // must set the expected onClick method, and should trigger the selected colour.
+            //buttonList[0].image = GameObject.Find("PlayButton").GetComponent<Image>();
+            buttonList[i].image.color = Color.white;
+            buttonList[i].action = PlayButtonAction;
+        }
+    }
+
 
      // Start is called before the first frame update
     void Start()
     {
-        CreateButtons();
+        CreateKeyboard();
+
+        CreateWordListButtons();
 
         //Get text component of scroll list
         scrollListText = wordlistGO.GetComponent<TextMeshProUGUI>(); //Use GetCompInChildren when in hierarchy below (child), else wont find. Think GetComp only for object assigned in inspector directly
@@ -172,6 +238,13 @@ public class ButtonManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            MoveToNextWord();
+        }
+        else if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            MoveToPreviousWord();
+        }
     }
 }
