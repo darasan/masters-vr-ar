@@ -49,13 +49,17 @@ public class ButtonManager : MonoBehaviour
     private string[] wordsC = 
     {"Call", "Catch", "Certain", "Check", "Chart", "Chill", "Chew", "Court"};
 
+
     public void PopulateWordList(string[] words)
     {
-        scrollListText.text = ""; //Clear
+        TextMeshProUGUI tmp_ugui;
+        int index;
 
-        foreach(string word in words)
-        {
-            scrollListText.text += word + "\n"; //Note += concats string so previous not overwritten
+        for(int i=0; i<wordList.Length; i++){
+            index = i; 
+
+            tmp_ugui = wordList[index].GetComponentInChildren<TextMeshProUGUI>();
+            tmp_ugui.text = words[index];
         }
     }
 
