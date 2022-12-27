@@ -187,6 +187,7 @@ public class ButtonManager : MonoBehaviour
         string wordText = wordList[selectedWord].GetComponentInChildren<TextMeshProUGUI>().text;
         TMP_InputField inputfield = inputField.GetComponent<TMP_InputField>();
         inputfield.text += wordText; //+= to concat words
+        inputfield.MoveToEndOfLine(false, true); //move caret to end
     }
 
     void CreateKeyboard()
