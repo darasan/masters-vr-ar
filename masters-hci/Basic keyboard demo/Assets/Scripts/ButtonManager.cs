@@ -48,8 +48,7 @@ public class ButtonManager : MonoBehaviour
     private string[] wordsC = 
     {"Call", "Catch", "Certain", "Check", "Chart", "Chill", "Chew", "Court"};
 
-
-    public void PopulateWordList(string[] words)
+    void PopulateWordList(string[] words)
     {
         TextMeshProUGUI tmp_ugui;
         int index;
