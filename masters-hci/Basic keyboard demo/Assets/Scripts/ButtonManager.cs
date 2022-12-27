@@ -187,7 +187,7 @@ public class ButtonManager : MonoBehaviour
         string wordText = wordList[selectedWord].GetComponentInChildren<TextMeshProUGUI>().text;
         TMP_InputField inputfield = inputField.GetComponent<TMP_InputField>();
         inputfield.text += wordText; //+= to concat words
-        inputfield.MoveToEndOfLine(false, true); //move caret to end
+        inputfield.MoveToEndOfLine(false, true); //move caret to end: https://forum.unity.com/threads/move-cursor-to-end-of-text.530903/#post-3525370
     }
 
     void CreateKeyboard()
