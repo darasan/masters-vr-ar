@@ -10,17 +10,19 @@ using TMPro;
 public class ButtonManager : MonoBehaviour
 {
     public GameObject buttonPrefab;
+    public GameObject wordPrefab;
     public Button[] buttons;
-    GameObject[] keysGO;
-    public GameObject wordlistGO;
-    TextMeshProUGUI scrollListText;
+    public GameObject scrollView;
+    public GameObject scrollViewContent; //TODO could get from scrollView above but make it work for now
 
-     ///<summary>Placeholder delegate function for our buttonList</summary>
+    GameObject[] keys; //keyboard keys
+    GameObject[] wordList; //word buttons
+    TextMeshProUGUI scrollListText; 
+
+     ///<summary>Placeholder delegate function for our wordList</summary>
     public delegate void ButtonAction();
 
-    public MyButton[] buttonList;
-    ///<summary>Index reference to our currently selected button.</summary>
-    public int selectedButton = 0;
+    public int selectedWord = 0;
 
     ///<summary>A struct to represent individual buttons. This makes it easier to wrap
     /// the required variables into a single container. Don't forget 
@@ -68,7 +70,7 @@ public class ButtonManager : MonoBehaviour
         // buttons[0].onClick.Invoke(); "works but doesnt change colour. separate event. will need to just set colour separately? want at least basic working for now, to see easily what key pressed"
         // "good, check docs again...  "
 
-        /* var go = keysGO[0];
+        /* var go = keys[0];
         var ped = new PointerEventData(EventSystem.current);
         ExecuteEvents.Execute(go, ped, ExecuteEvents.pointerEnterHandler);
         ExecuteEvents.Execute(go, ped, ExecuteEvents.submitHandler); */
@@ -125,7 +127,7 @@ public class ButtonManager : MonoBehaviour
        // "can use id received here to index button array, then set transform/scale. May need lerp thing later, just jump to vals for now"
        // "then connect keyboard input. May use buttonDown func if not working on first touch"
 
-        var go = keysGO[id];
+        var go = keys[id];
         var ped = new PointerEventData(EventSystem.current);
        // ExecuteEvents.Execute(go, ped, ExecuteEvents.pointerEnterHandler);
        // ExecuteEvents.Execute(go, ped, ExecuteEvents.submitHandler); 
@@ -142,38 +144,44 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("Play");
     }
 
-     void MoveToNextWord()
+    void MoveToNextWord()
     {
         // Reset the currently selected button to the default colour.
-        buttonList[selectedButton].image.color = Color.white;
+        Image wordImage = wordList[selectedWord].GetComponentInChildren<Image>();
+        wordImage.color = Color.white;
         // Increment our selected button index by 1.
-        selectedButton++;
+        selectedWord++;
         // Check that our new index does not move outside of our array.
-        if(selectedButton >= buttonList.Length)
+        if(selectedWord >= wordList.Length)
         {
             // If you want to reset to the first button, reset the index.
-            selectedButton = 0;
+            selectedWord = 0;
             // If you do not, simply move it back by 1, instead.
         }
-        // Set the currently selected button to the "selected" colour.
-        buttonList[selectedButton].image.color = Color.green;
+        // Set the currently selected word to the "selected" colour.
+        wordImage = wordList[selectedWord].GetComponentInChildren<Image>();
+        wordImage.color = Color.green;
+        Debug.Log("selectedWord: " + selectedWord);
     }
 
     void MoveToPreviousWord()
     {
-        buttonList[selectedButton].image.color = Color.white;
-        selectedButton--;
-        if(selectedButton < 0)
+        Image wordImage = wordList[selectedWord].GetComponentInChildren<Image>();
+        wordImage.color = Color.white;
+
+        selectedWord--;
+        if(selectedWord < 0)
         {
-            selectedButton = (buttonList.Length - 1);
+            selectedWord = (wordList.Length - 1);
         }
-        buttonList[selectedButton].image.color = Color.green;
+        wordImage = wordList[selectedWord].GetComponentInChildren<Image>();
+        wordImage.color = Color.green;
+        Debug.Log("selectedWord: " + selectedWord);
     }
 
     void CreateKeyboard()
     {
-        keysGO = new GameObject[26];
-        
+        keys = new GameObject[26];
 
         float padding = 35.0f; //padding from left side of panel
 
@@ -184,8 +192,8 @@ public class ButtonManager : MonoBehaviour
             //Init button from prefab
             GameObject btn = Instantiate(buttonPrefab); //"setting pos but not correct - understand how to do. remember relative to parent"
 
-            //Store GO
-            keysGO[index] = btn;
+            //Store game objects for each key
+            keys[index] = btn;
 
             //Set position
             btn.transform.SetParent(this.transform); //set this panel as parent, else will instantiate at top level in hierarchy
@@ -211,28 +219,36 @@ public class ButtonManager : MonoBehaviour
 
     void CreateWordListButtons()
     {
-        for(int i=0; i<buttonList.Length; i++){
+        wordList = new GameObject[5];
+        Image wordImage;
+        
+        for(int i=0; i<wordList.Length; i++){
+            int index = i; 
 
-            // Instantiate buttonList to hold the amount of buttons we are using.
-            // buttonList = new MyButton[2];
-            // Set up the first button, finding the game object based off its name. We also 
-            // must set the expected onClick method, and should trigger the selected colour.
-            //buttonList[0].image = GameObject.Find("PlayButton").GetComponent<Image>();
-            buttonList[i].image.color = Color.white;
-            buttonList[i].action = PlayButtonAction;
+            //Init from prefab
+            GameObject word = Instantiate(wordPrefab);
+            wordList[index] = word;
+
+            //No need to set position, done by Vertical Layout Group component added to Content. Just set parent transform as Content
+            word.transform.SetParent(scrollViewContent.transform);
+            wordImage = wordList[index].GetComponentInChildren<Image>();
+            if(index == 0){
+                wordImage.color = Color.green; //default to first selected in list. Matches selectedWord = 0 at startup
+            }
+            else{
+                wordImage.color = Color.white;
+            }
+
+            //wordList[index].action = PlayButtonAction; disable for now, not button so no action. may not need, just execute func depending on selected word (e,g copy to text field)
         }
     }
-
 
      // Start is called before the first frame update
     void Start()
     {
         CreateKeyboard();
-
         CreateWordListButtons();
-
-        //Get text component of scroll list
-        scrollListText = wordlistGO.GetComponent<TextMeshProUGUI>(); //Use GetCompInChildren when in hierarchy below (child), else wont find. Think GetComp only for object assigned in inspector directly
+        Debug.Log("selectedWord on start: " + selectedWord);
     }
 
     // Update is called once per frame
