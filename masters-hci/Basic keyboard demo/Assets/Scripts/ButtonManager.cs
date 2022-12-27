@@ -14,15 +14,14 @@ public class ButtonManager : MonoBehaviour
     public Button[] buttons;
     public GameObject scrollView;
     public GameObject scrollViewContent; //TODO could get from scrollView above but make it work for now
+    public GameObject inputField; //Main text input field
 
     GameObject[] keys; //keyboard keys
     GameObject[] wordList; //word buttons
-    TextMeshProUGUI scrollListText; 
+    int selectedWord = 0; //index of currently selected word in list
 
      ///<summary>Placeholder delegate function for our wordList</summary>
     public delegate void ButtonAction();
-
-    public int selectedWord = 0;
 
     ///<summary>A struct to represent individual buttons. This makes it easier to wrap
     /// the required variables into a single container. Don't forget 
@@ -183,6 +182,13 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("selectedWord: " + selectedWord);
     }
 
+    void CopySelectedWordToInputField()
+    {
+        string wordText = wordList[selectedWord].GetComponentInChildren<TextMeshProUGUI>().text;
+        TMP_InputField inputfield = inputField.GetComponent<TMP_InputField>();
+        inputfield.text += wordText; //+= to concat words
+    }
+
     void CreateKeyboard()
     {
         keys = new GameObject[26];
@@ -265,6 +271,12 @@ public class ButtonManager : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             MoveToPreviousWord();
+        }
+
+        else if(Input.GetKeyDown(KeyCode.Space))
+        {
+            CopySelectedWordToInputField();
+           // Debug.Log("Space");
         }
     }
 }
