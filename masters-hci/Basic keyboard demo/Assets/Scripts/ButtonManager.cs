@@ -35,6 +35,8 @@ public class ButtonManager : MonoBehaviour
         public ButtonAction action;
     }
 
+	public LoggingSystem logger;
+
     private string[] letters = 
     {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
      "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -276,7 +278,9 @@ public class ButtonManager : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.Space))
         {
             CopySelectedWordToInputField();
-           // Debug.Log("Space");
+            // Debug.Log("Space");
+            Debug.Log ("[LoggingDemo] Key down = Space");
+		    logger.writeAOTMessageWithTimestampToLog ("KEY_DOWN", "KEYBOARD", "SPACE");
         }
     }
 }
