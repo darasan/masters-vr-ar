@@ -240,7 +240,7 @@ public class ButtonManager : MonoBehaviour
             wordList[index] = word;
 
             //No need to set position, done by Vertical Layout Group component added to Content. Just set parent transform as Content
-            word.transform.SetParent(scrollViewContent.transform);
+            word.transform.SetParent(scrollViewContent.transform, false);
             wordImage = wordList[index].GetComponentInChildren<Image>();
             if(index == 0){
                 wordImage.color = Color.green; //default to first selected in list. Matches selectedWord = 0 at startup
