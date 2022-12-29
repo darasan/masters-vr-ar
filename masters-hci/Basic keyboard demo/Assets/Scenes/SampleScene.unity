@@ -342,15 +342,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1039,7 +1039,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1210457784}
+        m_TargetAssemblyTypeName: WordSequencer, Assembly-CSharp
+        m_MethodName: InputFieldChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1110,6 +1122,8 @@ GameObject:
   - component: {fileID: 1210457779}
   - component: {fileID: 1210457783}
   - component: {fileID: 1210457784}
+  - component: {fileID: 1210457785}
+  - component: {fileID: 1210457786}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1230,6 +1244,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wordDisplay: {fileID: 1502378132}
+--- !u!114 &1210457785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210457778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661e7e17e3915de4db004778a9466cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeLogging: 0
+--- !u!114 &1210457786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210457778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c71635719fea054b99f7a8f54c4f500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1260627637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,7 +1575,7 @@ MonoBehaviour:
   scrollView: {fileID: 1260627637}
   scrollViewContent: {fileID: 1692782222}
   inputField: {fileID: 877511399}
-  logger: {fileID: 0}
+  logger: {fileID: 1210457785}
 --- !u!1 &1502378130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,15 +1817,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

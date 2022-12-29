@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
-/* Class to manage loading of target words to be typed onto the screen */
 
+/* Class to manage loading of target words to be typed onto the screen */
 public class WordSequencer : MonoBehaviour
 {
+    public static event Action wordCompletedEvent;
+
     public TextMeshProUGUI wordDisplay;
+    int currentWordIndex = 0; //target word index
 
     //The words to be typed by the user
     private string[] targetWords = 
@@ -25,22 +29,56 @@ public class WordSequencer : MonoBehaviour
         
     }
 
-    public void StartSequencer()
+    void ShowNextWord()
     {
-        StartCoroutine(StartWordSequencer());
-    }
-
-    IEnumerator StartWordSequencer()
-    {
-        int index = 0;
-
-        Debug.Log("StartWordSequencer");
-        foreach (string word in targetWords)
-        {  
-            wordDisplay.text = targetWords[index];
-            index++;
-            yield return new WaitForSeconds(1);
+        currentWordIndex++;
+        if(currentWordIndex>= targetWords.Length)
+        {
+            Debug.Log("Finished test."); 
+            //clean up, stop timer, close log
         }
-        Debug.Log("StartWordSequencer: done.");
+        else
+        {
+            //Show next word
+            wordDisplay.text = targetWords[currentWordIndex];
+        }
     }
+
+    void CheckInputString(string input)
+    {
+        //Debug.Log("Compare input to: " + targetWords[currentWordIndex]);
+
+        if(input.Equals(targetWords[currentWordIndex]))
+        {
+            Debug.Log("Strings match!" + input); 
+            wordCompletedEvent.Invoke();
+            ShowNextWord();
+        }
+    }
+
+    public void InputFieldChanged(string input)
+    {
+        Debug.Log("Field changed: " + input); 
+        CheckInputString(input);
+    }
+
+    void ResetWordSequencer()
+    {
+        currentWordIndex = -1; //will inc on first move to show index 0
+        wordDisplay.text = "";
+    }
+
+    void StartWordSequencer()
+    {
+        Debug.Log("StartWordSequencer");
+        ShowNextWord();
+    }
+
+    public void StartSequencer() //may not need extra func, had used in coroutine before
+    {
+        //StartCoroutine(StartWordSequencer());
+        ResetWordSequencer();
+        StartWordSequencer();
+    }
+
 }

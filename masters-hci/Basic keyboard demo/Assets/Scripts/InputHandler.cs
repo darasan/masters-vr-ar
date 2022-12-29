@@ -49,5 +49,4 @@ public class InputHandler : MonoBehaviour
     {
         Debug.Log("Space");
     }
-
 }

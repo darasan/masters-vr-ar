@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-//using UnityEngine.UIElements;
 using TMPro;
 
 public class ButtonManager : MonoBehaviour
@@ -35,6 +34,8 @@ public class ButtonManager : MonoBehaviour
         public ButtonAction action;
     }
 
+    //Good comparison of events systems: https://gamedevbeginner.com/events-and-delegates-in-unity/
+
 	public LoggingSystem logger;
 
     private string[] letters = 
@@ -61,6 +62,13 @@ public class ButtonManager : MonoBehaviour
             tmp_ugui = wordList[index].GetComponentInChildren<TextMeshProUGUI>();
             tmp_ugui.text = words[index];
         }
+    }
+
+    private void WordCompletedSuccessfully()
+    {
+        Debug.Log("WordCompletedSuccessfully!");
+        TMP_InputField inputfield = inputField.GetComponent<TMP_InputField>();
+        inputfield.text = ""; 
     }
 
     public void OnA_clicked()
@@ -138,7 +146,6 @@ public class ButtonManager : MonoBehaviour
         
         //"crashes unity? check. if works, just add input mapping for A-Z in inputHandler, cant avoid. then just this code here"
         //"also could use dict to map 0-26 to A-Z, cleaner and works both directions"
-
 
     }
 
@@ -253,6 +260,18 @@ public class ButtonManager : MonoBehaviour
 
             //wordList[index].action = PlayButtonAction; disable for now, not button so no action. may not need, just execute func depending on selected word (e,g copy to text field)
         }
+    }
+
+    void OnEnable()
+    {
+        Debug.Log("OnEnable, subscribe events");
+        WordSequencer.wordCompletedEvent += WordCompletedSuccessfully;
+    }
+
+    void OnDisable()
+    {
+        Debug.Log("OnDisable, unsubscribe events");
+        WordSequencer.wordCompletedEvent -= WordCompletedSuccessfully;
     }
 
      // Start is called before the first frame update
