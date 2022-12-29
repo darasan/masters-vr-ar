@@ -208,7 +208,7 @@ public class ButtonManager : MonoBehaviour
             keys[index] = btn;
 
             //Set position
-            btn.transform.SetParent(this.transform); //set this panel as parent, else will instantiate at top level in hierarchy
+            btn.transform.SetParent(this.transform, false); //set this panel as parent, else will instantiate at top level in hierarchy
             RectTransform rect = btn.GetComponent<RectTransform>();
             rect.SetLocalPositionAndRotation(new Vector3(index * 50.0f + padding, 0.0f, 0.0f), Quaternion.identity);
             rect.anchorMax = new Vector2(0.0f, 0.5f); //X: bottom  Y: middle
