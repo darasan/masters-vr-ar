@@ -26,8 +26,6 @@ public class ButtonManager : MonoBehaviour
 
     //Good comparison of events systems: https://gamedevbeginner.com/events-and-delegates-in-unity/
 
-	public LoggingSystem logger;
-
     private string[] letters = 
     {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
      "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -302,7 +300,7 @@ public class ButtonManager : MonoBehaviour
             CopySelectedWordToInputField();
             // Debug.Log("Space");
             Debug.Log ("[LoggingDemo] Key down = Space");
-		    logger.writeAOTMessageWithTimestampToLog ("KEY_DOWN", "KEYBOARD", "SPACE");
+		    //logger.writeAOTMessageWithTimestampToLog ("KEY_DOWN", "KEYBOARD", "SPACE");
         }
     }
 }

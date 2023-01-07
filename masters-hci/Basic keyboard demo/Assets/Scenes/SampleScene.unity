@@ -1244,6 +1244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startButton: {fileID: 114738450}
   wordDisplay: {fileID: 1502378132}
+  logger: {fileID: 1210457785}
 --- !u!114 &1210457785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,7 +1257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661e7e17e3915de4db004778a9466cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeLogging: 0
+  activeLogging: 1
 --- !u!1 &1260627637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1565,6 @@ MonoBehaviour:
   scrollViewContent: {fileID: 1692782222}
   inputField: {fileID: 877511399}
   startButton: {fileID: 114738450}
-  logger: {fileID: 1210457785}
 --- !u!1 &1502378130
 GameObject:
   m_ObjectHideFlags: 0

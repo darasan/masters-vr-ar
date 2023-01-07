@@ -17,20 +17,19 @@ public class WordSequencer : MonoBehaviour
     int currentWordIndex = -1; //target word index. Will inc on first move to give index 0
 
     public static bool isPlaying = false;
+    public LoggingSystem logger;
 
     //The words to be typed by the user
     private string[] targetWords = 
-    {"A5", "is", "the", "best", "and", "thats", "a", "fact"};
+    {"This", "is", "a", "test", "for", "typing", "each", "word"};
 
     void OnEnable()
     {
-        Debug.Log("WordSeq OnEnable, subscribe events");
         ButtonManager.startButtonClickedEvent += StartButtonClicked;
     }
 
     void OnDisable()
     {
-        Debug.Log("WordSeq OnDisable, unsubscribe events");
         ButtonManager.startButtonClickedEvent -= StartButtonClicked;
     }
 
@@ -51,25 +50,30 @@ public class WordSequencer : MonoBehaviour
         currentWordIndex++;
         if(currentWordIndex>= targetWords.Length)
         {
-            Debug.Log("Finished test."); 
             StopWordSequencer();
+            Debug.Log("Finished test.");
+            logger.writeMessageToLog("Finished test.");
             //clean up, stop timer, close log
         }
         else
         {
             //Show next word
             wordDisplay.text = targetWords[currentWordIndex];
+            logger.writeAOTMessageWithTimestampToLog("Show new target word: " + targetWords[currentWordIndex], " " , " ");
         }
     }
 
     void CheckInputString(string input)
     {
         //Debug.Log("Compare input to: " + targetWords[currentWordIndex]);
-
+    
         if(isPlaying){
+            //Log input word, target word
+            logger.writeAOTMessageWithTimestampToLog (input, targetWords[currentWordIndex], " ");
+
             if(input.Equals(targetWords[currentWordIndex]))
             {
-                Debug.Log("Strings match!" + input); 
+                //Debug.Log("Strings match!" + input); 
                 wordCompletedEvent.Invoke();
                 ShowNextWord();
             }
@@ -78,13 +82,15 @@ public class WordSequencer : MonoBehaviour
 
     public void InputFieldChanged(string input)
     {
-        Debug.Log("Field changed: " + input); 
+        //Debug.Log("Field changed: " + input); 
         CheckInputString(input);
     }
 
     public void StopWordSequencer()
     {
         Debug.Log("StopWordSequencer");
+        logger.writeMessageToLog("StopWordSequencer");
+        logger.writeAOTMessageWithTimestampToLog("StopWordSequencer", " " , " ");
 
         isPlaying = false;
         currentWordIndex = -1;
@@ -94,6 +100,7 @@ public class WordSequencer : MonoBehaviour
     public void StartWordSequencer()
     {
         Debug.Log("StartWordSequencer");
+        logger.writeAOTMessageWithTimestampToLog("StartWordSequencer", " " , " ");
         isPlaying = true;
         ShowNextWord();
     }
@@ -108,5 +115,4 @@ public class WordSequencer : MonoBehaviour
         }
         
     }
-
 }

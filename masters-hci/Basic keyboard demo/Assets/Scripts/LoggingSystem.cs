@@ -19,7 +19,7 @@ public class LoggingSystem : MonoBehaviour {
 	#region FIELDS
 
 	// static log file names and formatters
-	private static string LOGFILE_DIRECTORY = "log2csv_logfiles";
+	private static string LOGFILE_DIRECTORY = "Logs";
 	private static string LOGFILE_NAME_BASE = "_log_file.csv";
 	private static string LOGFILE_NAME_TIME_FORMAT = "yyyy-MM-dd_HH-mm-ss";	// prefix of the logfile, created when application starts (year - month - day - hour - minute - second)
 
@@ -89,7 +89,7 @@ public class LoggingSystem : MonoBehaviour {
 	/// <param name="message">string representing the message to be written.</param>
 	public void writeMessageWithTimestampToLog(string message)
 	{
-		writeMessageToLog(Time.realtimeSinceStartup.ToString() + ";" + message);
+		writeMessageToLog(Time.realtimeSinceStartup.ToString() + "," + message);
 	}
 
 
@@ -101,7 +101,7 @@ public class LoggingSystem : MonoBehaviour {
 	/// <param name="tar">string representing the TARGET message.</param>
 	public void writeAOTMessageWithTimestampToLog(string act, string obj, string tar)
 	{
-		writeMessageToLog(Time.realtimeSinceStartup.ToString() + ";" + act + ";" + obj + ";" + tar);
+		writeMessageToLog(Time.realtimeSinceStartup.ToString() + "," + act + "," + obj + "," + tar);
 	}
 		
 
@@ -116,7 +116,7 @@ public class LoggingSystem : MonoBehaviour {
 	/// <param name="state">string representing the MODE message.</param>
 	public void writeAOTOSMMessageWithTimestampToLog(string act, string obj, string tar, string origin, string state, string mode)
 	{
-		writeMessageToLog(Time.realtimeSinceStartup.ToString() + ";" + act + ";" + obj + ";" + tar + ";" + origin + ";" + state + ";" + mode);
+		writeMessageToLog(Time.realtimeSinceStartup.ToString() + "," + act + "," + obj + "," + tar + "," + origin + "," + state + "," + mode);
 	}
 
 	#endregion
