@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using TMPro;
-
+using System;
 
 /* Class to manage loading of target words to be typed onto the screen */
 public class WordSequencer : MonoBehaviour
 {
     public static event Action wordCompletedEvent;
+    public Button startButton;
 
     public TextMeshProUGUI wordDisplay;
     int currentWordIndex = 0; //target word index
