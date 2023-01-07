@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 114738451}
   - component: {fileID: 114738450}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.29248843, g: 0.745283, b: 0.3554329, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -206,19 +206,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114738451}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1210457784}
-        m_TargetAssemblyTypeName: WordSequencer, Assembly-CSharp
-        m_MethodName: StartSequencer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &114738451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,7 +438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play
+  m_text: Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1123,7 +1111,6 @@ GameObject:
   - component: {fileID: 1210457783}
   - component: {fileID: 1210457784}
   - component: {fileID: 1210457785}
-  - component: {fileID: 1210457786}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1243,6 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c068f8cc54fbe46a96ec1f2584c175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startButton: {fileID: 114738450}
   wordDisplay: {fileID: 1502378132}
 --- !u!114 &1210457785
 MonoBehaviour:
@@ -1257,18 +1245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeLogging: 0
---- !u!114 &1210457786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1210457778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c71635719fea054b99f7a8f54c4f500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1260627637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,6 +1551,7 @@ MonoBehaviour:
   scrollView: {fileID: 1260627637}
   scrollViewContent: {fileID: 1692782222}
   inputField: {fileID: 877511399}
+  startButton: {fileID: 114738450}
   logger: {fileID: 1210457785}
 --- !u!1 &1502378130
 GameObject:

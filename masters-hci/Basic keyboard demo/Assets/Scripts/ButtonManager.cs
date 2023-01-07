@@ -14,12 +14,14 @@ public class ButtonManager : MonoBehaviour
     public GameObject scrollView;
     public GameObject scrollViewContent; //TODO could get from scrollView above but make it work for now
     public GameObject inputField; //Main text input field
+    public Button startButton;
 
     GameObject[] keys; //keyboard keys
     GameObject[] wordList; //word buttons
     int selectedWord = 0; //index of currently selected word in list
+    Color darkGreen = new Color(0.29f, 0.74f, 0.35f, 1.0f);
 
-     ///<summary>Placeholder delegate function for our wordList</summary>
+    //<summary>Placeholder delegate function for our wordList</summary>
     public delegate void ButtonAction();
 
     ///<summary>A struct to represent individual buttons. This makes it easier to wrap
@@ -149,12 +151,6 @@ public class ButtonManager : MonoBehaviour
 
     }
 
-    ///<summary>This is the method that will call when selecting "Play".</summary>
-    void PlayButtonAction()
-    {
-        Debug.Log("Play");
-    }
-
     void MoveToNextWord()
     {
         // Reset the currently selected button to the default colour.
@@ -171,7 +167,7 @@ public class ButtonManager : MonoBehaviour
         }
         // Set the currently selected word to the "selected" colour.
         wordImage = wordList[selectedWord].GetComponentInChildren<Image>();
-        wordImage.color = Color.green;
+        wordImage.color = darkGreen;
         Debug.Log("selectedWord: " + selectedWord);
     }
 
@@ -186,7 +182,7 @@ public class ButtonManager : MonoBehaviour
             selectedWord = (wordList.Length - 1);
         }
         wordImage = wordList[selectedWord].GetComponentInChildren<Image>();
-        wordImage.color = Color.green;
+        wordImage.color = darkGreen;
         Debug.Log("selectedWord: " + selectedWord);
     }
 
@@ -252,7 +248,7 @@ public class ButtonManager : MonoBehaviour
             word.transform.SetParent(scrollViewContent.transform, false);
             wordImage = wordList[index].GetComponentInChildren<Image>();
             if(index == 0){
-                wordImage.color = Color.green; //default to first selected in list. Matches selectedWord = 0 at startup
+                wordImage.color = darkGreen; //default to first selected in list. Matches selectedWord = 0 at startup
             }
             else{
                 wordImage.color = Color.white;
@@ -260,6 +256,13 @@ public class ButtonManager : MonoBehaviour
 
             //wordList[index].action = PlayButtonAction; disable for now, not button so no action. may not need, just execute func depending on selected word (e,g copy to text field)
         }
+    }
+
+    public void StartButtonClicked()
+    {
+        Debug.Log("StartButtonClicked");
+        Image image = startButton.GetComponentInChildren<Image>();
+        //image.color = darkGreen;
     }
 
     void OnEnable()
