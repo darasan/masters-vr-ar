@@ -10,14 +10,29 @@ using System;
 public class WordSequencer : MonoBehaviour
 {
     public static event Action wordCompletedEvent;
+
     public Button startButton;
 
     public TextMeshProUGUI wordDisplay;
     int currentWordIndex = 0; //target word index
 
+    public static bool isPlaying = false;
+
     //The words to be typed by the user
     private string[] targetWords = 
     {"A5", "is", "the", "best", "and", "thats", "a", "fact"};
+
+    void OnEnable()
+    {
+        Debug.Log("WordSeq OnEnable, subscribe events");
+        ButtonManager.startButtonClickedEvent += StartButtonClicked;
+    }
+
+    void OnDisable()
+    {
+        Debug.Log("WordSeq OnDisable, unsubscribe events");
+        ButtonManager.startButtonClickedEvent -= StartButtonClicked;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -64,23 +79,31 @@ public class WordSequencer : MonoBehaviour
         CheckInputString(input);
     }
 
-    void ResetWordSequencer()
+    public void StopWordSequencer()
     {
+        Debug.Log("StopWordSequencer");
+
+        isPlaying = false;
         currentWordIndex = -1; //will inc on first move to show index 0
         wordDisplay.text = "";
     }
 
-    void StartWordSequencer()
+    public void StartWordSequencer()
     {
         Debug.Log("StartWordSequencer");
+        isPlaying = true;
         ShowNextWord();
     }
 
-    public void StartSequencer() //may not need extra func, had used in coroutine before
+    void StartButtonClicked()
     {
-        //StartCoroutine(StartWordSequencer());
-        ResetWordSequencer();
-        StartWordSequencer();
+        if(isPlaying){
+            StopWordSequencer();
+        }
+        else{
+            StartWordSequencer();
+        }
+        
     }
 
 }

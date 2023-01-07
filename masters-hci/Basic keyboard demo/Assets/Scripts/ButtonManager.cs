@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
+using System; //for Action type
 
 public class ButtonManager : MonoBehaviour
 {
@@ -16,25 +17,12 @@ public class ButtonManager : MonoBehaviour
     public GameObject inputField; //Main text input field
     public Button startButton;
 
+    public static event Action startButtonClickedEvent;
+
     GameObject[] keys; //keyboard keys
     GameObject[] wordList; //word buttons
     int selectedWord = 0; //index of currently selected word in list
     Color darkGreen = new Color(0.29f, 0.74f, 0.35f, 1.0f);
-
-    //<summary>Placeholder delegate function for our wordList</summary>
-    public delegate void ButtonAction();
-
-    ///<summary>A struct to represent individual buttons. This makes it easier to wrap
-    /// the required variables into a single container. Don't forget 
-    /// [System.Serializable], if you wish to see your final array in the inspector.
-    [System.Serializable]
-    public struct MyButton
-    {
-        /// <summary>The image contained in the button.</summary>
-        public Image image;
-        /// <summary>The delegate method to invoke on action.</summary>
-        public ButtonAction action;
-    }
 
     //Good comparison of events systems: https://gamedevbeginner.com/events-and-delegates-in-unity/
 
@@ -261,8 +249,20 @@ public class ButtonManager : MonoBehaviour
     public void StartButtonClicked()
     {
         Debug.Log("StartButtonClicked");
+        startButtonClickedEvent.Invoke();
+
         Image image = startButton.GetComponentInChildren<Image>();
-        //image.color = darkGreen;
+        TextMeshProUGUI btnText = startButton.GetComponentInChildren<TextMeshProUGUI>(); 
+
+        if(WordSequencer.isPlaying){
+            image.color = Color.red;
+            btnText.text = "Stop";
+        }
+
+        else{ //Not playing, set ready to play
+            image.color = darkGreen;
+            btnText.text = "Start";
+        }
     }
 
     void OnEnable()
