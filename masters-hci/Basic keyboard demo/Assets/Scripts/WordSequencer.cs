@@ -14,7 +14,7 @@ public class WordSequencer : MonoBehaviour
     public Button startButton;
 
     public TextMeshProUGUI wordDisplay;
-    int currentWordIndex = 0; //target word index
+    int currentWordIndex = -1; //target word index. Will inc on first move to give index 0
 
     public static bool isPlaying = false;
 
@@ -52,6 +52,7 @@ public class WordSequencer : MonoBehaviour
         if(currentWordIndex>= targetWords.Length)
         {
             Debug.Log("Finished test."); 
+            StopWordSequencer();
             //clean up, stop timer, close log
         }
         else
@@ -65,11 +66,13 @@ public class WordSequencer : MonoBehaviour
     {
         //Debug.Log("Compare input to: " + targetWords[currentWordIndex]);
 
-        if(input.Equals(targetWords[currentWordIndex]))
-        {
-            Debug.Log("Strings match!" + input); 
-            wordCompletedEvent.Invoke();
-            ShowNextWord();
+        if(isPlaying){
+            if(input.Equals(targetWords[currentWordIndex]))
+            {
+                Debug.Log("Strings match!" + input); 
+                wordCompletedEvent.Invoke();
+                ShowNextWord();
+            }
         }
     }
 
@@ -84,7 +87,7 @@ public class WordSequencer : MonoBehaviour
         Debug.Log("StopWordSequencer");
 
         isPlaying = false;
-        currentWordIndex = -1; //will inc on first move to show index 0
+        currentWordIndex = -1;
         wordDisplay.text = "";
     }
 
