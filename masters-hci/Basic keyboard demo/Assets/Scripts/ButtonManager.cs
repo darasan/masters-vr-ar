@@ -263,16 +263,29 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
+    //Called by sequencerFinishedEvent in Word Sequencer
+    void SequencerFinished()
+    {
+        //Reset button / other UI
+        Image image = startButton.GetComponentInChildren<Image>();
+        TextMeshProUGUI btnText = startButton.GetComponentInChildren<TextMeshProUGUI>(); 
+
+        image.color = darkGreen;
+        btnText.text = "Start";
+    }
+
     void OnEnable()
     {
         Debug.Log("OnEnable, subscribe events");
         WordSequencer.wordCompletedEvent += WordCompletedSuccessfully;
+        WordSequencer.sequencerFinishedEvent += SequencerFinished;
     }
 
     void OnDisable()
     {
         Debug.Log("OnDisable, unsubscribe events");
         WordSequencer.wordCompletedEvent -= WordCompletedSuccessfully;
+        WordSequencer.sequencerFinishedEvent -= SequencerFinished;
     }
 
      // Start is called before the first frame update

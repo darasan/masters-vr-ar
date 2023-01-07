@@ -10,6 +10,7 @@ using System;
 public class WordSequencer : MonoBehaviour
 {
     public static event Action wordCompletedEvent;
+    public static event Action sequencerFinishedEvent;
 
     public Button startButton;
 
@@ -51,6 +52,8 @@ public class WordSequencer : MonoBehaviour
         if(currentWordIndex>= targetWords.Length)
         {
             StopWordSequencer();
+            sequencerFinishedEvent.Invoke();
+
             Debug.Log("Finished test.");
             logger.writeMessageToLog("Finished test.");
             //clean up, stop timer, close log
