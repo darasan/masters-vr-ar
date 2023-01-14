@@ -26,18 +26,11 @@ public class ButtonManager : MonoBehaviour
 
     //Good comparison of events systems: https://gamedevbeginner.com/events-and-delegates-in-unity/
 
+    public WordDictionary dict;
+
     private string[] letters = 
     {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
      "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
-    private string[] wordsA = 
-    {"Any", "Arm", "Allow", "Apple", "Author", "Apricot", "Art", "Audio"};
-
-    private string[] wordsB = 
-    {"Back", "Be", "Best", "Bill", "Bore", "Bubble", "Beach", "Bump"};
-
-    private string[] wordsC = 
-    {"Call", "Catch", "Certain", "Check", "Chart", "Chill", "Chew", "Court"};
 
     void PopulateWordList(string[] words)
     {
@@ -108,15 +101,15 @@ public class ButtonManager : MonoBehaviour
         switch (id)
         {
             case 0:
-                PopulateWordList(wordsA);
+                PopulateWordList(dict.wordsA);
                 break;
             
             case 1:
-                PopulateWordList(wordsB);
+                PopulateWordList(dict.wordsB);
                 break;
 
             case 2:
-                PopulateWordList(wordsC);
+                PopulateWordList(dict.wordsC);
                 break;
             
             default:

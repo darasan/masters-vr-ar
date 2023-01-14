@@ -1123,6 +1123,7 @@ GameObject:
   - component: {fileID: 1210457783}
   - component: {fileID: 1210457784}
   - component: {fileID: 1210457785}
+  - component: {fileID: 1210457786}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1258,6 +1259,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeLogging: 1
+--- !u!114 &1210457786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210457778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5238ac311ed8145937e7a379d7b5c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1260627637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,6 +1578,7 @@ MonoBehaviour:
   scrollViewContent: {fileID: 1692782222}
   inputField: {fileID: 877511399}
   startButton: {fileID: 114738450}
+  dict: {fileID: 1210457786}
 --- !u!1 &1502378130
 GameObject:
   m_ObjectHideFlags: 0
