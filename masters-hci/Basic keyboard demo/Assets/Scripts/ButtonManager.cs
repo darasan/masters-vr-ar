@@ -26,22 +26,37 @@ public class ButtonManager : MonoBehaviour
 
     //Good comparison of events systems: https://gamedevbeginner.com/events-and-delegates-in-unity/
 
-    public WordDictionary dict;
 
     private string[] letters = 
     {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
      "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
-    void PopulateWordList(string[] words)
+    void PopulateWordList(List<string> words)
     {
         TextMeshProUGUI tmp_ugui;
         int index;
 
-        for(int i=0; i<wordList.Length; i++){
-            index = i; 
+        //Debug.Log("num results: " + words.Count);
 
-            tmp_ugui = wordList[index].GetComponentInChildren<TextMeshProUGUI>();
-            tmp_ugui.text = words[index];
+        if(words.Count>0) //don't change current list if no results
+        {
+            for(int i=0; i<wordList.Length; i++){ //limit to showing only wordlist length for now (5), not all
+                index = i; 
+
+                tmp_ugui = wordList[index].GetComponentInChildren<TextMeshProUGUI>();
+
+                if(words.Count <= index)
+                {
+                    //We got less search results than words list size (5), just clear words at current index and higher
+                    tmp_ugui.text = "";
+                }
+
+                else
+                {
+                    tmp_ugui.text = words[index];
+                    //Debug.Log("Added to list: " + words[index]);
+                }
+            }
         }
     }
 
@@ -98,24 +113,7 @@ public class ButtonManager : MonoBehaviour
     {
         // The id is the text of the button.
         Debug.Log("Clicked: " + id.ToString());
-        switch (id)
-        {
-            case 0:
-                PopulateWordList(dict.wordsA);
-                break;
-            
-            case 1:
-                PopulateWordList(dict.wordsB);
-                break;
-
-            case 2:
-                PopulateWordList(dict.wordsC);
-                break;
-            
-            default:
-                break;
-        }
-
+       
        // "next - add small jump/scale on key press so looks nice. If want to change highlight colour, do in prefab"
        // "can use id received here to index button array, then set transform/scale. May need lerp thing later, just jump to vals for now"
        // "then connect keyboard input. May use buttonDown func if not working on first touch"
@@ -169,7 +167,8 @@ public class ButtonManager : MonoBehaviour
     {
         string wordText = wordList[selectedWord].GetComponentInChildren<TextMeshProUGUI>().text;
         TMP_InputField inputfield = inputField.GetComponent<TMP_InputField>();
-        inputfield.text += wordText; //+= to concat words
+
+        inputfield.text = wordText; //+= to concat words. Not doing now, just set one word so not added
         inputfield.MoveToEndOfLine(false, true); //move caret to end: https://forum.unity.com/threads/move-cursor-to-end-of-text.530903/#post-3525370
     }
 
@@ -265,6 +264,8 @@ public class ButtonManager : MonoBehaviour
 
         image.color = darkGreen;
         btnText.text = "Start";
+
+       // "next - move up/down/delete keys into inputHandler, not btn manager. have singleton for logger so can log delete and word up/down keys too. then mostly done for now...? review with Arnaud"
     }
 
     void OnEnable()
@@ -272,6 +273,7 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("OnEnable, subscribe events");
         WordSequencer.wordCompletedEvent += WordCompletedSuccessfully;
         WordSequencer.sequencerFinishedEvent += SequencerFinished;
+        WordSequencer.newDictionarySearchResultsEvent += PopulateWordList;
     }
 
     void OnDisable()
@@ -279,6 +281,7 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("OnDisable, unsubscribe events");
         WordSequencer.wordCompletedEvent -= WordCompletedSuccessfully;
         WordSequencer.sequencerFinishedEvent -= SequencerFinished;
+        WordSequencer.newDictionarySearchResultsEvent -= PopulateWordList;
     }
 
      // Start is called before the first frame update

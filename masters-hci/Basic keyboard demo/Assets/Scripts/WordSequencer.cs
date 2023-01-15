@@ -11,14 +11,17 @@ public class WordSequencer : MonoBehaviour
 {
     public static event Action wordCompletedEvent;
     public static event Action sequencerFinishedEvent;
+    public static event Action<List<string>> newDictionarySearchResultsEvent;
 
     public Button startButton;
 
-    public TextMeshProUGUI wordDisplay;
+    public TextMeshProUGUI wordDisplay; //the current target word
     int currentWordIndex = -1; //target word index. Will inc on first move to give index 0
 
     public static bool isPlaying = false;
     public LoggingSystem logger;
+
+    public WordDictionary dict;
 
     //The words to be typed by the user
     private string[] targetWords = 
@@ -87,6 +90,8 @@ public class WordSequencer : MonoBehaviour
     {
         //Debug.Log("Field changed: " + input); 
         CheckInputString(input);
+        List<string> searchResults = dict.SearchDictionaryForString(input); //search the dictionary on the fly for each input string
+        newDictionarySearchResultsEvent.Invoke(searchResults);
     }
 
     public void StopWordSequencer()
@@ -98,6 +103,7 @@ public class WordSequencer : MonoBehaviour
         isPlaying = false;
         currentWordIndex = -1;
         wordDisplay.text = "";
+        //TODO - clear input field also
     }
 
     public void StartWordSequencer()

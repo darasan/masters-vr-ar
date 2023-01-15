@@ -26,6 +26,9 @@ public class WordDictionary : MonoBehaviour
     {
         List<string> searchResults = new List<string>();
 
+        //Remove leading and trailing whitespace
+        searchString.Trim();
+
         Debug.Log("SearchDictionaryForString: " + searchString);
 
         string searchPattern = "^" + searchString; //"^" means should match from start of string, else will find results inside string. https://learn.microsoft.com/en-us/dotnet/csharp/how-to/search-strings
@@ -38,10 +41,10 @@ public class WordDictionary : MonoBehaviour
             }
         }
 
-        foreach(string result in searchResults)
+        /*foreach(string result in searchResults)
         {
             Debug.Log("Match found: " + result);
-        }
+        }*/
 
         return searchResults;
     }
@@ -74,10 +77,6 @@ public class WordDictionary : MonoBehaviour
         {
             AddWordToDictionary(word);
         }
-
-        //PrintDictionaryContents();
-
-        SearchDictionaryForString("Ch");
     }
 
     // Update is called once per frame
