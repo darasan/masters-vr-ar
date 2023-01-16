@@ -1,25 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class WordDictionary : MonoBehaviour
 {
-    public string[] wordsA = 
-    {"Any", "Arm", "Allow", "Apple", "Author", "Apricot", "Art", "Audio"};
-
-    public string[] wordsB = 
-    {"Back", "Be", "Best", "Bill", "Bore", "Bubble", "Beach", "Bump"};
-
-    public string[] wordsC = 
-    {"Call", "Catch", "Certain", "Check", "Chart", "Chill", "Chew", "Court"};
-
-
     private List<string> dictionary = new List<string>(); //The "word dictionary" is implemented as a list. Just an array of strings (no key-value pairs)
 
     private void AddWordToDictionary(string word)
     {
         dictionary.Add(word);
         //Debug.Log("Added word to dictionary: " + word);
+    }
+
+    private void LoadDictionaryFromFile(string path)
+    {
+        // This text is added only once to the file.
+        if (!File.Exists(path))
+        {
+            Debug.Log("Could not open file at path: " + path);
+        }
+
+        else
+        {
+            Debug.Log("File opened OK: " + path);
+        }
+
+        // Open the file and read each line into a string array
+        string[] readText = File.ReadAllLines(path);
+        foreach (string word in readText)
+        {
+            if(!dictionary.Contains(word))
+            {
+                AddWordToDictionary(word);
+            }
+
+            else
+            {
+                // NB - Many duplicates! Should clean list
+                // Debug.Log("Duplicate! " + word);
+            }
+        }
     }
 
     public List<string> SearchDictionaryForString(string searchString)
@@ -51,32 +72,29 @@ public class WordDictionary : MonoBehaviour
 
     private void PrintDictionaryContents()
     {
-        Debug.Log("PrintDictionaryContents");
+        Debug.Log("PrintDictionaryContents: ");
 
         foreach(string word in dictionary)
         {
             Debug.Log(word);
         }
+
+        Debug.Log("Total words in dictionary: " + dictionary.Count);
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach(string word in wordsA)
-        {
-            AddWordToDictionary(word);
-        }
+        //Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
 
-        foreach(string word in wordsB)
-        {
-            AddWordToDictionary(word);
-        }
+        //File stored in app data folder
+        string path = Application.persistentDataPath + "/wordList.txt";
+        LoadDictionaryFromFile(path);
 
-        foreach(string word in wordsC)
-        {
-            AddWordToDictionary(word);
-        }
+         //Sort from A-Z (default sort comparer)
+        dictionary.Sort(); 
+        //PrintDictionaryContents();
     }
 
     // Update is called once per frame
