@@ -122,14 +122,30 @@ public class WordSequencer : MonoBehaviour
         
     }
 
+    //Just using these events for logger. Could really have 1 event and pass the key as parameter...much shorter
     void LeftKeyPressed()
     {
-        Debug.Log("LeftKeyPressed");
+        logger.writeAOTMessageWithTimestampToLog("LeftKeyPressed", " " , " ");
     }
 
      void RightKeyPressed()
     {
-        Debug.Log("RightKeyPressed");
+        logger.writeAOTMessageWithTimestampToLog("RightKeyPressed", " " , " ");
+    }
+
+    void UpKeyPressed()
+    {
+        logger.writeAOTMessageWithTimestampToLog("UpKeyPressed", " " , " ");
+    }
+
+    void DownKeyPressed()
+    {
+        logger.writeAOTMessageWithTimestampToLog("DownKeyPressed", " " , " ");
+    }
+
+    void ControlKeyPressed()
+    {
+        logger.writeAOTMessageWithTimestampToLog("ControlKeyPressed", " " , " ");
     }
 
     void OnEnable()
@@ -137,6 +153,9 @@ public class WordSequencer : MonoBehaviour
         ButtonManager.startButtonClickedEvent += StartButtonClicked;
         InputHandler.leftKeyPressedEvent += LeftKeyPressed;
         InputHandler.rightKeyPressedEvent += RightKeyPressed;
+        InputHandler.upKeyPressedEvent += UpKeyPressed;
+        InputHandler.downKeyPressedEvent += DownKeyPressed;
+        InputHandler.controlKeyPressedEvent += ControlKeyPressed;
     }
 
     void OnDisable()
@@ -144,6 +163,9 @@ public class WordSequencer : MonoBehaviour
         ButtonManager.startButtonClickedEvent -= StartButtonClicked;
         InputHandler.leftKeyPressedEvent -= LeftKeyPressed;
         InputHandler.rightKeyPressedEvent -= RightKeyPressed;
+        InputHandler.upKeyPressedEvent -= UpKeyPressed;
+        InputHandler.downKeyPressedEvent -= DownKeyPressed;
+        InputHandler.controlKeyPressedEvent -= ControlKeyPressed;
     }
 
     // Start is called before the first frame update
