@@ -122,14 +122,28 @@ public class WordSequencer : MonoBehaviour
         
     }
 
+    void LeftKeyPressed()
+    {
+        Debug.Log("LeftKeyPressed");
+    }
+
+     void RightKeyPressed()
+    {
+        Debug.Log("RightKeyPressed");
+    }
+
     void OnEnable()
     {
         ButtonManager.startButtonClickedEvent += StartButtonClicked;
+        InputHandler.leftKeyPressedEvent += LeftKeyPressed;
+        InputHandler.rightKeyPressedEvent += RightKeyPressed;
     }
 
     void OnDisable()
     {
         ButtonManager.startButtonClickedEvent -= StartButtonClicked;
+        InputHandler.leftKeyPressedEvent -= LeftKeyPressed;
+        InputHandler.rightKeyPressedEvent -= RightKeyPressed;
     }
 
     // Start is called before the first frame update

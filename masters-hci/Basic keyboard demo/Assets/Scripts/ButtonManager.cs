@@ -264,8 +264,21 @@ public class ButtonManager : MonoBehaviour
 
         image.color = darkGreen;
         btnText.text = "Start";
+    }
 
-       // "next - move up/down/delete keys into inputHandler, not btn manager. have singleton for logger so can log delete and word up/down keys too. then mostly done for now...? review with Arnaud"
+    void UpKeyPressed()
+    {
+        MoveToPreviousWord();
+    }
+
+    void DownKeyPressed()
+    {
+        MoveToNextWord();
+    }
+
+    void SpaceKeyPressed()
+    {
+        CopySelectedWordToInputField();
     }
 
     void OnEnable()
@@ -274,6 +287,9 @@ public class ButtonManager : MonoBehaviour
         WordSequencer.wordCompletedEvent += WordCompletedSuccessfully;
         WordSequencer.sequencerFinishedEvent += SequencerFinished;
         WordSequencer.newDictionarySearchResultsEvent += PopulateWordList;
+        InputHandler.upKeyPressedEvent += UpKeyPressed;
+        InputHandler.downKeyPressedEvent += DownKeyPressed;
+        InputHandler.spaceKeyPressedEvent += SpaceKeyPressed;
     }
 
     void OnDisable()
@@ -282,6 +298,9 @@ public class ButtonManager : MonoBehaviour
         WordSequencer.wordCompletedEvent -= WordCompletedSuccessfully;
         WordSequencer.sequencerFinishedEvent -= SequencerFinished;
         WordSequencer.newDictionarySearchResultsEvent -= PopulateWordList;
+        InputHandler.upKeyPressedEvent -= UpKeyPressed;
+        InputHandler.downKeyPressedEvent -= DownKeyPressed;
+        InputHandler.spaceKeyPressedEvent -= SpaceKeyPressed;
     }
 
      // Start is called before the first frame update
@@ -290,26 +309,5 @@ public class ButtonManager : MonoBehaviour
         CreateKeyboard();
         CreateWordListButtons();
         Debug.Log("selectedWord on start: " + selectedWord);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            MoveToNextWord();
-        }
-        else if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            MoveToPreviousWord();
-        }
-
-        else if(Input.GetKeyDown(KeyCode.Space))
-        {
-            CopySelectedWordToInputField();
-            // Debug.Log("Space");
-            Debug.Log ("[LoggingDemo] Key down = Space");
-		    //logger.writeAOTMessageWithTimestampToLog ("KEY_DOWN", "KEYBOARD", "SPACE");
-        }
     }
 }
