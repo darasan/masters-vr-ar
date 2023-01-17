@@ -78,9 +78,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SpaceKeyPressed",
+                    "name": "ControlKeyPressed",
                     "type": "Button",
-                    "id": "2ecf8d4f-076d-479a-b270-0c0a14fabc05",
+                    "id": "8504d4b4-8874-4370-aa6d-c33671471c85",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -178,12 +178,12 @@
                 },
                 {
                     "name": "",
-                    "id": "06f7d116-912d-4cab-9267-65a025d4ee5c",
-                    "path": "<Keyboard>/space",
+                    "id": "d13b5889-19d4-40bb-9dc4-305c861da990",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SpaceKeyPressed",
+                    "action": "ControlKeyPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

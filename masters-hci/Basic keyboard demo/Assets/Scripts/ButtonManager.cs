@@ -276,7 +276,7 @@ public class ButtonManager : MonoBehaviour
         MoveToNextWord();
     }
 
-    void SpaceKeyPressed()
+    void ControlKeyPressed()
     {
         CopySelectedWordToInputField();
     }
@@ -289,7 +289,7 @@ public class ButtonManager : MonoBehaviour
         WordSequencer.newDictionarySearchResultsEvent += PopulateWordList;
         InputHandler.upKeyPressedEvent += UpKeyPressed;
         InputHandler.downKeyPressedEvent += DownKeyPressed;
-        InputHandler.spaceKeyPressedEvent += SpaceKeyPressed;
+        InputHandler.controlKeyPressedEvent += ControlKeyPressed;
     }
 
     void OnDisable()
@@ -300,7 +300,7 @@ public class ButtonManager : MonoBehaviour
         WordSequencer.newDictionarySearchResultsEvent -= PopulateWordList;
         InputHandler.upKeyPressedEvent -= UpKeyPressed;
         InputHandler.downKeyPressedEvent -= DownKeyPressed;
-        InputHandler.spaceKeyPressedEvent -= SpaceKeyPressed;
+        InputHandler.controlKeyPressedEvent -= ControlKeyPressed;
     }
 
      // Start is called before the first frame update

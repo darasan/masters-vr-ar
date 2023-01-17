@@ -16,7 +16,7 @@ public class InputHandler : MonoBehaviour
     public static event Action rightKeyPressedEvent;
     public static event Action upKeyPressedEvent;
     public static event Action downKeyPressedEvent;
-    public static event Action spaceKeyPressedEvent;
+    public static event Action controlKeyPressedEvent;
 
     private void OnEnable() => playerControls.Enable();
     private void OnDisable() => playerControls.Disable();
@@ -58,10 +58,10 @@ public class InputHandler : MonoBehaviour
         downKeyPressedEvent.Invoke();
     }
 
-    void OnSpaceKeyPressed()
+    void OnControlKeyPressed()
     {
-        Debug.Log("OnSpaceKeyPressed");
-        spaceKeyPressedEvent.Invoke();
+        Debug.Log("OnControlKeyPressed");
+        controlKeyPressedEvent.Invoke();
     }
 
     void OnA_press()
