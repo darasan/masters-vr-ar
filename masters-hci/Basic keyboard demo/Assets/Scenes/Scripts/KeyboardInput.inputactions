@@ -6,36 +6,9 @@
             "id": "17d6d939-9075-4829-bb8c-f3212a597876",
             "actions": [
                 {
-                    "name": "A_press",
-                    "type": "Button",
-                    "id": "b518a407-13ac-4e3b-a8f9-812c83540168",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Space",
                     "type": "Button",
                     "id": "dda06520-0cbc-4d88-b862-4173caadfcb9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "B_press",
-                    "type": "Button",
-                    "id": "dab5921e-538e-420b-8341-9c1710bf7898",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "C_press",
-                    "type": "Button",
-                    "id": "573c33c8-ff68-4669-b577-9c7fe5013bc9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -85,20 +58,18 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "BackspaceKeyPressed",
+                    "type": "Button",
+                    "id": "b5cebfcc-d67d-4011-b7bd-332fc2f63392",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "d8143d06-f7da-44ed-ac9d-fd1ee7786e23",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "A_press",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "694231cd-4dfa-47af-a0be-6cf536390152",
@@ -107,28 +78,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Space",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d5b521bb-10f2-4073-bbb1-c5a5281609e6",
-                    "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "B_press",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "56cd09f9-839c-4b5a-982d-c22b7ce61812",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "C_press",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -184,6 +133,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ControlKeyPressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9d12ef6-6d4d-45ab-b627-28e20f49d6b8",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BackspaceKeyPressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

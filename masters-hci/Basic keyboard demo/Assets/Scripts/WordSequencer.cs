@@ -148,6 +148,11 @@ public class WordSequencer : MonoBehaviour
         logger.writeAOTMessageWithTimestampToLog("ControlKeyPressed", " " , " ");
     }
 
+    void BackspaceKeyPressed()
+    {
+        logger.writeAOTMessageWithTimestampToLog("BackspaceKeyPressed", " " , " ");
+    }
+
     void OnEnable()
     {
         ButtonManager.startButtonClickedEvent += StartButtonClicked;
@@ -156,6 +161,7 @@ public class WordSequencer : MonoBehaviour
         InputHandler.upKeyPressedEvent += UpKeyPressed;
         InputHandler.downKeyPressedEvent += DownKeyPressed;
         InputHandler.controlKeyPressedEvent += ControlKeyPressed;
+        InputHandler.backspaceKeyPressedEvent += BackspaceKeyPressed;
     }
 
     void OnDisable()
@@ -166,6 +172,7 @@ public class WordSequencer : MonoBehaviour
         InputHandler.upKeyPressedEvent -= UpKeyPressed;
         InputHandler.downKeyPressedEvent -= DownKeyPressed;
         InputHandler.controlKeyPressedEvent -= ControlKeyPressed;
+        InputHandler.backspaceKeyPressedEvent -= BackspaceKeyPressed;
     }
 
     // Start is called before the first frame update

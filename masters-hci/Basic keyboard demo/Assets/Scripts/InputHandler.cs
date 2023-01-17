@@ -17,10 +17,10 @@ public class InputHandler : MonoBehaviour
     public static event Action upKeyPressedEvent;
     public static event Action downKeyPressedEvent;
     public static event Action controlKeyPressedEvent;
+    public static event Action backspaceKeyPressedEvent;
 
     private void OnEnable() => playerControls.Enable();
     private void OnDisable() => playerControls.Disable();
-
 
     // Start is called before the first frame update
     void Start()
@@ -36,51 +36,31 @@ public class InputHandler : MonoBehaviour
 
     void OnLeftKeyPressed()
     {
-        Debug.Log("OnLeftKeyPressed");
         leftKeyPressedEvent.Invoke();
     }
 
     void OnRightKeyPressed()
     {
-        Debug.Log("OnRightKeyPressed");
         rightKeyPressedEvent.Invoke();
     }
 
     void OnUpKeyPressed()
     {
-        Debug.Log("OnUpKeyPressed");
         upKeyPressedEvent.Invoke();
     }
 
     void OnDownKeyPressed()
     {
-        Debug.Log("OnDownKeyPressed");
         downKeyPressedEvent.Invoke();
     }
 
     void OnControlKeyPressed()
     {
-        Debug.Log("OnControlKeyPressed");
         controlKeyPressedEvent.Invoke();
     }
 
-    void OnA_press()
+     void OnBackspaceKeyPressed()
     {
-       // Debug.Log("OnAPress");
-       // btn_mgr = panel.GetComponent<ButtonManager>();
-       // btn_mgr.OnButtonClick(0);
+        backspaceKeyPressedEvent.Invoke();
     }
-
-    void OnB_press()
-    {
-       // btn_mgr = panel.GetComponent<ButtonManager>();
-       // btn_mgr.OnButtonClick(1); 
-    }
-
-    void OnC_press()
-    {
-       // btn_mgr = panel.GetComponent<ButtonManager>();
-       // btn_mgr.OnButtonClick(2); 
-    }
-
 }
