@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.IO;
 
 /* Class to manage loading of target words to be typed onto the screen */
 public class WordSequencer : MonoBehaviour
@@ -22,37 +23,33 @@ public class WordSequencer : MonoBehaviour
     public LoggingSystem logger;
 
     public WordDictionary dict;
+    private List<string> targetWords = new List<string>(); 
 
-    //The words to be typed by the user
-    private string[] targetWords = 
-    {"This", "is", "a", "test", "for", "typing", "each", "word"};
-
-    void OnEnable()
+    private void LoadTargetWordsFromFile(string path)
     {
-        ButtonManager.startButtonClickedEvent += StartButtonClicked;
-    }
+        // This text is added only once to the file.
+        if (!File.Exists(path))
+        {
+            Debug.Log("Could not open file at path: " + path);
+        }
 
-    void OnDisable()
-    {
-        ButtonManager.startButtonClickedEvent -= StartButtonClicked;
-    }
+        else
+        {
+            Debug.Log("File opened OK: " + path);
+        }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Open the file and read each line into a string array, then add to target words
+        string[] readText = File.ReadAllLines(path);
+        foreach (string word in readText)
+        {
+            targetWords.Add(word);
+        }
     }
 
     void ShowNextWord()
     {
         currentWordIndex++;
-        if(currentWordIndex>= targetWords.Length)
+        if(currentWordIndex>= targetWords.Count)
         {
             StopWordSequencer();
             sequencerFinishedEvent.Invoke();
@@ -90,8 +87,8 @@ public class WordSequencer : MonoBehaviour
     {
         //Debug.Log("Field changed: " + input); 
         CheckInputString(input);
-        List<string> searchResults = dict.SearchDictionaryForString(input); //search the dictionary on the fly for each input string
-        newDictionarySearchResultsEvent.Invoke(searchResults);
+        List<string> searchResults = dict.SearchDictionaryForString(input); //Search the dictionary on the fly for each input string
+        newDictionarySearchResultsEvent.Invoke(searchResults); //Trigger event to send results to ButtonManager
     }
 
     public void StopWordSequencer()
@@ -124,4 +121,28 @@ public class WordSequencer : MonoBehaviour
         }
         
     }
+
+    void OnEnable()
+    {
+        ButtonManager.startButtonClickedEvent += StartButtonClicked;
+    }
+
+    void OnDisable()
+    {
+        ButtonManager.startButtonClickedEvent -= StartButtonClicked;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        string path = Application.persistentDataPath + "/targetWords.txt";
+        LoadTargetWordsFromFile(path);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
 }

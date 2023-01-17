@@ -15,7 +15,6 @@ public class WordDictionary : MonoBehaviour
 
     private void LoadDictionaryFromFile(string path)
     {
-        // This text is added only once to the file.
         if (!File.Exists(path))
         {
             Debug.Log("Could not open file at path: " + path);
@@ -50,7 +49,7 @@ public class WordDictionary : MonoBehaviour
         //Remove leading and trailing whitespace
         searchString.Trim();
 
-        Debug.Log("SearchDictionaryForString: " + searchString);
+        //Debug.Log("SearchDictionaryForString: " + searchString);
 
         string searchPattern = "^" + searchString; //"^" means should match from start of string, else will find results inside string. https://learn.microsoft.com/en-us/dotnet/csharp/how-to/search-strings
 
@@ -86,7 +85,7 @@ public class WordDictionary : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
+        Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
 
         //File stored in app data folder
         string path = Application.persistentDataPath + "/wordList.txt";
