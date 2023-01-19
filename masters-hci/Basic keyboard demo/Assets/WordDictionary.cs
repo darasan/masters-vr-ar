@@ -110,13 +110,12 @@ public class WordDictionary : MonoBehaviour
 
          //Sort from A-Z (default sort comparer)
         //dictionary.Sort(); 
-        //PrintDictionaryContents();
 
-        Debug.Log("BeforeShuffle ");
-        PrintDictionaryContents();
+        //Debug.Log("BeforeShuffle ");
+        //PrintDictionaryContents();
         ShuffleDictionary();
-        Debug.Log("AfterShuffle ");
-        PrintDictionaryContents();
+       // Debug.Log("AfterShuffle ");
+        //PrintDictionaryContents();
 
     }
 

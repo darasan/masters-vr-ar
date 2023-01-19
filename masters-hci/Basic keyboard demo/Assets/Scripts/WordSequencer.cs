@@ -18,12 +18,23 @@ public class WordSequencer : MonoBehaviour
 
     public TextMeshProUGUI wordDisplay; //the current target word
     int currentWordIndex = -1; //target word index. Will inc on first move to give index 0
+    public TextMeshProUGUI progressDisplay; //shows number of words completed / remaining
 
     public static bool isPlaying = false;
     public LoggingSystem logger;
 
     public WordDictionary dict;
-    private List<string> targetWords = new List<string>(); 
+    private List<string> targetWords = new List<string>();
+
+    int totalBackspaceKeyPresses = 0;
+    int totalControlKeyPresses = 0;
+    int totalUpKeyPresses = 0;
+    int totalDownKeyPresses = 0;
+
+    private void UpdateProgressDisplay()
+    {
+        progressDisplay.text = currentWordIndex + "/" + targetWords.Count;
+    }
 
     private void LoadTargetWordsFromFile(string path)
     {
@@ -56,12 +67,19 @@ public class WordSequencer : MonoBehaviour
 
             Debug.Log("Finished test.");
             logger.writeMessageToLog("Finished test.");
+            progressDisplay.text = "Finished test!";
+
+            logger.writeAOTMessageWithTimestampToLog("totalBackspaceKeyPresses: " + totalBackspaceKeyPresses, " " , " ");
+            logger.writeAOTMessageWithTimestampToLog("totalControlKeyPresses: " + totalControlKeyPresses, " " , " ");
+            logger.writeAOTMessageWithTimestampToLog("totalUpKeyPresses: " + totalUpKeyPresses, " " , " ");
+            logger.writeAOTMessageWithTimestampToLog("totalDownKeyPresses: " + totalDownKeyPresses, " " , " ");
             //clean up, stop timer, close log
         }
         else
         {
             //Show next word
             wordDisplay.text = targetWords[currentWordIndex];
+            UpdateProgressDisplay();
             logger.writeAOTMessageWithTimestampToLog("Show new target word: " + targetWords[currentWordIndex], " " , " ");
         }
     }
@@ -107,6 +125,9 @@ public class WordSequencer : MonoBehaviour
     {
         Debug.Log("StartWordSequencer");
         logger.writeAOTMessageWithTimestampToLog("StartWordSequencer", " " , " ");
+
+        //Reset statistics
+        totalBackspaceKeyPresses = totalControlKeyPresses = totalDownKeyPresses =  totalUpKeyPresses = 0;
         isPlaying = true;
         ShowNextWord();
     }
@@ -135,21 +156,25 @@ public class WordSequencer : MonoBehaviour
 
     void UpKeyPressed()
     {
+        totalUpKeyPresses++;
         logger.writeAOTMessageWithTimestampToLog("UpKeyPressed", " " , " ");
     }
 
     void DownKeyPressed()
     {
+        totalDownKeyPresses++;
         logger.writeAOTMessageWithTimestampToLog("DownKeyPressed", " " , " ");
     }
 
     void ControlKeyPressed()
     {
+        totalControlKeyPresses++;
         logger.writeAOTMessageWithTimestampToLog("ControlKeyPressed", " " , " ");
     }
 
     void BackspaceKeyPressed()
     {
+        totalBackspaceKeyPresses++;
         logger.writeAOTMessageWithTimestampToLog("BackspaceKeyPressed", " " , " ");
     }
 
