@@ -312,7 +312,7 @@ public class ButtonManager : MonoBehaviour
      // Start is called before the first frame update
     void Start()
     {
-        CreateKeyboard();
+        //CreateKeyboard();
         CreateWordListButtons();
         Debug.Log("selectedWord on start: " + selectedWord);
     }
