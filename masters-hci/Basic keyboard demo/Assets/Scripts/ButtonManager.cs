@@ -16,6 +16,7 @@ public class ButtonManager : MonoBehaviour
     public GameObject scrollViewContent; //TODO could get from scrollView above but make it work for now
     public GameObject inputField; //Main text input field
     public Button startButton;
+    public Toggle wordlistToggle;
 
     public static event Action startButtonClickedEvent;
 
@@ -65,6 +66,11 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("WordCompletedSuccessfully!");
         TMP_InputField inputfield = inputField.GetComponent<TMP_InputField>();
         inputfield.text = ""; 
+    }
+
+    public void OnToggleChanged(bool enabled)
+    {
+        scrollView.SetActive(enabled);
     }
 
     public void OnA_clicked()
