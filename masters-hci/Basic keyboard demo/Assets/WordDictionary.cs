@@ -69,6 +69,23 @@ public class WordDictionary : MonoBehaviour
         return searchResults;
     }
 
+    private void ShuffleDictionary()  
+    {
+        //Fisher-Yates shuffle algorithm
+
+        System.Random random = new System.Random();  
+        int n = this.dictionary.Count;  
+
+        for(int i= dictionary.Count - 1; i > 1; i--)
+        {
+            int rnd = random.Next(i + 1);  
+
+            string word = dictionary[rnd];  
+            dictionary[rnd] = dictionary[i];  
+            dictionary[i] = word;
+        }
+    }
+
     private void PrintDictionaryContents()
     {
         Debug.Log("PrintDictionaryContents: ");
@@ -92,9 +109,19 @@ public class WordDictionary : MonoBehaviour
         LoadDictionaryFromFile(path);
 
          //Sort from A-Z (default sort comparer)
-        dictionary.Sort(); 
+        //dictionary.Sort(); 
         //PrintDictionaryContents();
+
+        Debug.Log("BeforeShuffle ");
+        PrintDictionaryContents();
+        ShuffleDictionary();
+        Debug.Log("AfterShuffle ");
+        PrintDictionaryContents();
+
     }
+
+    //30 words took about 5 mins, without dict
+    //Use 20 for final list, enough
 
     // Update is called once per frame
     void Update()
