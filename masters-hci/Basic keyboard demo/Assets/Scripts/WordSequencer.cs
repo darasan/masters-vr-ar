@@ -64,19 +64,20 @@ public class WordSequencer : MonoBehaviour
     void ShowNextWord()
     {
         currentWordIndex++;
-        if(currentWordIndex>= targetWords.Count)
+        //if(currentWordIndex>= targetWords.Count)
+        if(currentWordIndex>= 5)
         {
             StopWordSequencer();
             sequencerFinishedEvent.Invoke();
 
-            Debug.Log("Finished test.");
-            logger.writeMessageToLog("Finished test.");
+            logger.writeAOTMessageWithTimestampToLog("Finished test.", " " , " ");
             progressDisplay.text = "Finished test!";
 
-            logger.writeAOTMessageWithTimestampToLog("totalBackspaceKeyPresses: " + totalBackspaceKeyPresses, " " , " ");
-            logger.writeAOTMessageWithTimestampToLog("totalControlKeyPresses: " + totalControlKeyPresses, " " , " ");
-            logger.writeAOTMessageWithTimestampToLog("totalUpKeyPresses: " + totalUpKeyPresses, " " , " ");
-            logger.writeAOTMessageWithTimestampToLog("totalDownKeyPresses: " + totalDownKeyPresses, " " , " ");
+            //Write statistics to log
+            logger.writeAOTMessageWithTimestampToLog("totalBackspaceKeyPresses: ", totalBackspaceKeyPresses.ToString(), " ");
+            logger.writeAOTMessageWithTimestampToLog("totalControlKeyPresses: ", totalControlKeyPresses.ToString(), " ");
+            logger.writeAOTMessageWithTimestampToLog("totalUpKeyPresses: ", totalUpKeyPresses.ToString(), " ");
+            logger.writeAOTMessageWithTimestampToLog("totalDownKeyPresses: ", totalDownKeyPresses.ToString(), " ");
             //clean up, stop timer, close log
         }
         else
@@ -116,7 +117,6 @@ public class WordSequencer : MonoBehaviour
     public void StopWordSequencer()
     {
         Debug.Log("StopWordSequencer");
-        logger.writeMessageToLog("StopWordSequencer");
         logger.writeAOTMessageWithTimestampToLog("StopWordSequencer", " " , " ");
 
         isPlaying = false;
@@ -129,8 +129,8 @@ public class WordSequencer : MonoBehaviour
     {
         Debug.Log("StartWordSequencer");
         logger.writeAOTMessageWithTimestampToLog("StartWordSequencer", " " , " ");
-        logger.writeAOTMessageWithTimestampToLog("Username: " + username.text, " " , " ");
-        logger.writeAOTMessageWithTimestampToLog("Keyboard type: " + kbdType.value, " " , " ");
+        logger.writeAOTMessageWithTimestampToLog("Username: ", username.text, " ");
+        logger.writeAOTMessageWithTimestampToLog("Keyboard type: ", kbdType.value.ToString(), " ");
 
         //Reset statistics
         totalBackspaceKeyPresses = totalControlKeyPresses = totalDownKeyPresses =  totalUpKeyPresses = 0;
