@@ -13,7 +13,7 @@ public class ButtonManager : MonoBehaviour
     public GameObject wordPrefab;
     public Button[] buttons;
     public GameObject scrollView;
-    public GameObject scrollViewContent; //TODO could get from scrollView above but make it work for now
+    public GameObject scrollViewContent;
     public GameObject inputField; //Main text input field
     public Button startButton;
     public Toggle wordlistToggle;
@@ -24,9 +24,6 @@ public class ButtonManager : MonoBehaviour
     GameObject[] wordList; //word buttons
     int selectedWord = 0; //index of currently selected word in list
     Color darkGreen = new Color(0.29f, 0.74f, 0.35f, 1.0f);
-
-    //Good comparison of events systems: https://gamedevbeginner.com/events-and-delegates-in-unity/
-
 
     private string[] letters = 
     {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
@@ -73,65 +70,9 @@ public class ButtonManager : MonoBehaviour
         scrollView.SetActive(enabled);
     }
 
-    public void OnA_clicked()
+    public void OnSoftKeyboardButtonClick(int id)
     {
-        Debug.Log("A clicked! send btn event");
-
-        //using (var e = new NavigationSubmitEvent() { target = testBtn } )
-        //testBtn.SendEvent(e);
-        //testBtn.onClick.Invoke();
-
-        // buttons[0].onClick.Invoke(); "works but doesnt change colour. separate event. will need to just set colour separately? want at least basic working for now, to see easily what key pressed"
-        // "good, check docs again...  "
-
-        /* var go = keys[0];
-        var ped = new PointerEventData(EventSystem.current);
-        ExecuteEvents.Execute(go, ped, ExecuteEvents.pointerEnterHandler);
-        ExecuteEvents.Execute(go, ped, ExecuteEvents.submitHandler); */
-    }
-
-    public void OnB_clicked()
-    {
-        Debug.Log("B clicked!");
-    }
-
-    public void OnC_clicked()
-    {
-        Debug.Log("C clicked!");
-    }
-
-    public void OnD_clicked()
-    {
-        Debug.Log("D clicked!");
-    }
-
-    public void OnE_clicked()
-    {
-        Debug.Log("E clicked!");
-    }
-
-    public void OnTestBtn_clicked()
-    {
-        Debug.Log("Test btn clicked!");
-    }
-
-    public void OnButtonClick(int id)
-    {
-        // The id is the text of the button.
         Debug.Log("Clicked: " + id.ToString());
-       
-       // "next - add small jump/scale on key press so looks nice. If want to change highlight colour, do in prefab"
-       // "can use id received here to index button array, then set transform/scale. May need lerp thing later, just jump to vals for now"
-       // "then connect keyboard input. May use buttonDown func if not working on first touch"
-
-        var go = keys[id];
-        var ped = new PointerEventData(EventSystem.current);
-       // ExecuteEvents.Execute(go, ped, ExecuteEvents.pointerEnterHandler);
-       // ExecuteEvents.Execute(go, ped, ExecuteEvents.submitHandler); 
-        
-        //"crashes unity? check. if works, just add input mapping for A-Z in inputHandler, cant avoid. then just this code here"
-        //"also could use dict to map 0-26 to A-Z, cleaner and works both directions"
-
     }
 
     void MoveToNextWord()
@@ -139,14 +80,12 @@ public class ButtonManager : MonoBehaviour
         // Reset the currently selected button to the default colour.
         Image wordImage = wordList[selectedWord].GetComponentInChildren<Image>();
         wordImage.color = Color.white;
-        // Increment our selected button index by 1.
         selectedWord++;
+
         // Check that our new index does not move outside of our array.
         if(selectedWord >= wordList.Length)
         {
-            // If you want to reset to the first button, reset the index.
             selectedWord = 0;
-            // If you do not, simply move it back by 1, instead.
         }
         // Set the currently selected word to the "selected" colour.
         wordImage = wordList[selectedWord].GetComponentInChildren<Image>();
@@ -174,8 +113,8 @@ public class ButtonManager : MonoBehaviour
         string wordText = wordList[selectedWord].GetComponentInChildren<TextMeshProUGUI>().text;
         TMP_InputField inputfield = inputField.GetComponent<TMP_InputField>();
 
-        inputfield.text = wordText; //+= to concat words. Not doing now, just set one word so not added
-        inputfield.MoveToEndOfLine(false, true); //move caret to end: https://forum.unity.com/threads/move-cursor-to-end-of-text.530903/#post-3525370
+        inputfield.text = wordText;
+        inputfield.MoveToEndOfLine(false, true);
     }
 
     void CreateKeyboard()
@@ -205,14 +144,10 @@ public class ButtonManager : MonoBehaviour
             buttons[index] = btn.GetComponent<UnityEngine.UI.Button>();
 
             //Set text for button
-            TextMeshProUGUI tmp_ugui = btn.GetComponentInChildren<TextMeshProUGUI>(); //Use GetCompInChildren when in hierarchy below (child), else wont find. Think GetComp only for object assigned in inspector directly
-            tmp_ugui.text = letters[index];                                           //Could set Text field public and assign in inspector, but more messy (less coded)
-
-            //Debug.Log("Letter:");
-            //Debug.Log(letters[index]);
+            TextMeshProUGUI tmp_ugui = btn.GetComponentInChildren<TextMeshProUGUI>(); //Use GetCompInChildren when in hierarchy below (child), else wont find
 
             //Assign click callback
-            buttons[index].onClick.AddListener(() => OnButtonClick(index));
+            buttons[index].onClick.AddListener(() => OnSoftKeyboardButtonClick(index));
         }
     }
 
@@ -237,8 +172,6 @@ public class ButtonManager : MonoBehaviour
             else{
                 wordImage.color = Color.white;
             }
-
-            //wordList[index].action = PlayButtonAction; disable for now, not button so no action. may not need, just execute func depending on selected word (e,g copy to text field)
         }
     }
 

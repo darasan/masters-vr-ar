@@ -10,7 +10,6 @@ public class InputHandler : MonoBehaviour
     
     public InputAction playerControls;
     public GameObject panel;
-    //private ButtonManager btn_mgr = null;
 
     public static event Action leftKeyPressedEvent;
     public static event Action rightKeyPressedEvent;

@@ -33,12 +33,6 @@ public class WordDictionary : MonoBehaviour
             {
                 AddWordToDictionary(word);
             }
-
-            else
-            {
-                // NB - Many duplicates! Should clean list
-                // Debug.Log("Duplicate! " + word);
-            }
         }
     }
 
@@ -61,18 +55,12 @@ public class WordDictionary : MonoBehaviour
             }
         }
 
-        /*foreach(string result in searchResults)
-        {
-            Debug.Log("Match found: " + result);
-        }*/
-
         return searchResults;
     }
 
     private void ShuffleDictionary()  
     {
         //Fisher-Yates shuffle algorithm
-
         System.Random random = new System.Random();  
         int n = this.dictionary.Count;  
 
@@ -110,18 +98,9 @@ public class WordDictionary : MonoBehaviour
 
          //Sort from A-Z (default sort comparer)
         //dictionary.Sort(); 
-
-        //Debug.Log("BeforeShuffle ");
-        //PrintDictionaryContents();
         ShuffleDictionary();
-       // Debug.Log("AfterShuffle ");
-        //PrintDictionaryContents();
-
     }
-
-    //30 words took about 5 mins, without dict
-    //Use 20 for final list, enough
-
+    
     // Update is called once per frame
     void Update()
     {
