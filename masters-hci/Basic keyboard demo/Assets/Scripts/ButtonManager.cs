@@ -284,7 +284,10 @@ public class ButtonManager : MonoBehaviour
 
     void ControlKeyPressed()
     {
-        CopySelectedWordToInputField();
+        if(scrollView.activeInHierarchy)
+        {
+            CopySelectedWordToInputField();
+        }
     }
 
     void OnEnable()
