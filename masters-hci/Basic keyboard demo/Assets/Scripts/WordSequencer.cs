@@ -15,6 +15,10 @@ public class WordSequencer : MonoBehaviour
     public static event Action<List<string>> newDictionarySearchResultsEvent;
 
     public Button startButton;
+    public GameObject usernameField;
+    public GameObject keyboardType;
+    private TMP_InputField username;
+    private TMP_Dropdown kbdType;
 
     public TextMeshProUGUI wordDisplay; //the current target word
     int currentWordIndex = -1; //target word index. Will inc on first move to give index 0
@@ -125,6 +129,8 @@ public class WordSequencer : MonoBehaviour
     {
         Debug.Log("StartWordSequencer");
         logger.writeAOTMessageWithTimestampToLog("StartWordSequencer", " " , " ");
+        logger.writeAOTMessageWithTimestampToLog("Username: " + username.text, " " , " ");
+        logger.writeAOTMessageWithTimestampToLog("Keyboard type: " + kbdType.value, " " , " ");
 
         //Reset statistics
         totalBackspaceKeyPresses = totalControlKeyPresses = totalDownKeyPresses =  totalUpKeyPresses = 0;
@@ -203,7 +209,12 @@ public class WordSequencer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        username = usernameField.GetComponent<TMP_InputField>();
+        kbdType = keyboardType.GetComponent<TMP_Dropdown>();
+
         string path = Application.persistentDataPath + "/targetWords.txt";
+        logger.writeAOTMessageWithTimestampToLog("Application.persistentDataPath:" + Application.persistentDataPath, " " , " ");
+        
         LoadTargetWordsFromFile(path);
     }
 
